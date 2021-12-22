@@ -2232,7 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Pagination',
+  name: "Pagination",
   props: {
     totalItems: {
       type: Array,
@@ -2244,7 +2244,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       itemsPerPage: 5,
-      itemsPerPageOptions: [5, 10, 15, 'All'],
+      itemsPerPageOptions: [5, 10, 15, "All"],
       // TODO
       page: 1
     };
@@ -2261,16 +2261,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     totalItems: function totalItems() {
-      this.$emit('on-page-change', this.calculateItems());
+      this.$emit("on-page-change", this.calculateItems());
     }
   },
   methods: {
     setPage: function setPage(page) {
       this.page = (0,_helpers__WEBPACK_IMPORTED_MODULE_0__.clamp)(page, 1, this.totalPages);
-      this.$emit('on-page-change', this.calculateItems());
+      this.$emit("on-page-change", this.calculateItems());
     },
     calculateItems: function calculateItems() {
-      if (this.itemsPerPage === 'all') return this.totalItems;
+      if (this.itemsPerPage === "all") return this.totalItems;
       return this.totalItems.slice((this.page - 1) * this.itemsPerPage, this.page * this.itemsPerPage);
     }
   }
@@ -2406,6 +2406,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     description: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required
+    }
+  },
+  computed: {
+    modalTitle: function modalTitle() {
+      return _.isNil(this.post.id) ? "Создание поста" : "Редактирование поста";
     }
   },
   watch: {
@@ -40234,7 +40239,7 @@ var render = function () {
                   _c("div", { staticClass: "modal-content" }, [
                     _c("div", { staticClass: "modal-header" }, [
                       _c("h5", { staticClass: "modal-title" }, [
-                        _vm._v("Создание поста"),
+                        _vm._v(_vm._s(_vm.modalTitle)),
                       ]),
                       _vm._v(" "),
                       _c(

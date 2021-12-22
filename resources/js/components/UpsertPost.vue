@@ -6,7 +6,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Создание поста</h5>
+                <h5 class="modal-title">{{ modalTitle }}</h5>
                 <button
                   type="button"
                   class="close"
@@ -101,6 +101,11 @@ export default {
     },
     description: {
       required,
+    },
+  },
+  computed: {
+    modalTitle() {
+      return _.isNil(this.post.id) ? "Создание поста" : "Редактирование поста";
     },
   },
   watch: {
