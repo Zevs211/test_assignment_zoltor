@@ -16,14 +16,23 @@
       <li class="page-item" :class="{ disabled: page === totalPages }">
         <span class="page-link" @click="setPage(page + 1)">Следующая</span>
       </li>
+      <dropdown
+        class="ml-4"
+        :options="itemsPerPageOptions"
+        v-model="itemsPerPage"
+      />
     </ul>
   </nav>
 </template>
 
 <script>
 import { clamp } from "../helpers";
+import Dropdown from "./Dropdown.vue";
+
+const ALL_OPTION = "All";
 
 export default {
+  components: { Dropdown },
   name: "Pagination",
   props: {
     totalItems: {
@@ -33,12 +42,15 @@ export default {
   },
   data: () => ({
     itemsPerPage: 5,
-    itemsPerPageOptions: [5, 10, 15, "All"], // TODO
+    itemsPerPageOptions: [5, 10, 15, ALL_OPTION],
     page: 1,
   }),
   computed: {
     totalPages() {
-      return Math.ceil(this.totalItems.length / this.itemsPerPage);
+      const itemsPerPage = _.isString(this.itemsPerPage)
+        ? this.totalItems.length
+        : this.itemsPerPage;
+      return Math.ceil(this.totalItems.length / itemsPerPage);
     },
     paginationItems() {
       return new Array(this.totalPages).fill().map((_, index) => index + 1);
@@ -48,6 +60,10 @@ export default {
     totalItems() {
       this.$emit("on-page-change", this.calculateItems());
     },
+    itemsPerPage() {
+      this.page = 1;
+      this.$emit("on-page-change", this.calculateItems());
+    },
   },
   methods: {
     setPage(page) {
@@ -55,7 +71,7 @@ export default {
       this.$emit("on-page-change", this.calculateItems());
     },
     calculateItems() {
-      if (this.itemsPerPage === "all") return this.totalItems;
+      if (this.itemsPerPage === ALL_OPTION) return this.totalItems;
       return this.totalItems.slice(
         (this.page - 1) * this.itemsPerPage,
         this.page * this.itemsPerPage

@@ -81,6 +81,7 @@ export default {
       }
     },
     onPageChange(items) {
+      console.log(items);
       this.comments = items;
     },
     editPost() {
