@@ -2591,10 +2591,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "App"
+  name: "App",
+  data: function data() {
+    return {
+      routes: [{
+        name: "Welcome",
+        title: "Главная"
+      }, {
+        name: "Posts",
+        title: "Посты"
+      }]
+    };
+  },
+  methods: {
+    isActiveRoute: function isActiveRoute(route) {
+      return this.$route.name === route.name;
+    }
+  }
 });
 
 /***/ }),
@@ -2610,8 +2624,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -40697,37 +40709,28 @@ var render = function () {
     { staticClass: "container" },
     [
       _c("div", { staticClass: "container" }, [
-        _c("ul", { staticClass: "nav nav-tabs justify-content-center" }, [
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link px-2 link-dark",
-                  attrs: { to: { name: "Welcome" } },
-                },
-                [_vm._v("\n          Главная\n        ")]
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link px-2 link-dark",
-                  attrs: { to: { name: "Posts" } },
-                },
-                [_vm._v("\n          Посты\n        ")]
-              ),
-            ],
-            1
-          ),
-        ]),
+        _c(
+          "div",
+          { staticClass: "nav nav-tabs justify-content-center" },
+          _vm._l(_vm.routes, function (route) {
+            return _c(
+              "span",
+              {
+                key: route.name,
+                staticClass: "nav-link px-2 link-dark",
+                class: { active: _vm.isActiveRoute(route) },
+                attrs: { "aria-selected": _vm.isActiveRoute(route) },
+              },
+              [
+                _c("router-link", { attrs: { to: { name: route.name } } }, [
+                  _vm._v("\n          " + _vm._s(route.title) + "\n        "),
+                ]),
+              ],
+              1
+            )
+          }),
+          0
+        ),
       ]),
       _vm._v(" "),
       _c("router-view"),
@@ -40766,10 +40769,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("div", { staticClass: "alert alert-info" }, [
-        _c("p", { staticClass: "lead" }, [
-          _vm._v("\n            Удачи в тестовом задании!\n        "),
-        ]),
+      _c("div", { staticClass: "alert alert-info mt-4" }, [
+        _c("p", { staticClass: "lead" }, [_vm._v("Удачи в тестовом задании!")]),
       ]),
     ])
   },
@@ -40901,6 +40902,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "mt-4" },
     [
       _c(
         "button",

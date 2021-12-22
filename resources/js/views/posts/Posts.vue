@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-4">
     <button class="btn btn-primary" @click="showCreatePostModal = true">
       Создание поста
     </button>
